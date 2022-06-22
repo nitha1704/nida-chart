@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multiple Chart</title>
+    <link rel="stylesheet" href="./css/multiple-chart-style.css" />
+  </head>
+
+  <body>
+    <section id="multiple-chart-section">
+      <div class="chart chart1">
+        <canvas id="canvas1"></canvas>
+        <div>
+          <label for="threshold1">Threshold: </label>
+          <input
+            type="range"
+            id="threshold1"
+            min="1"
+            max="0"
+            value="0"
+            step="1"
+            style="width: 100%"
+          />
+          <span id="thresholdCurrent1">0</span>
+        </div>
+        <button onclick="showTotalItem()">showTotalItem</button>
+      </div>
+      <div class="chart chart2">
+        <canvas id="canvas2"></canvas>
+        <div>
+          <label for="threshold2">Threshold: </label>
+          <input
+            type="range"
+            id="threshold2"
+            min="1"
+            max="0"
+            value="0"
+            step="1"
+            style="width: 100%"
+          />
+          <span id="thresholdCurrent2">0</span>
+        </div>
+      </div>
+      <div class="chart chart3">
+        <canvas id="canvas3"></canvas>
+        <div>
+          <label for="threshold3">Threshold: </label>
+          <input
+            type="range"
+            id="threshold3"
+            min="1"
+            max="0"
+            value="0"
+            step="1"
+            style="width: 100%"
+          />
+          <span id="thresholdCurrent3">0</span>
+        </div>
+      </div>
+      <div class="chart chart4">
+        <canvas id="canvas4"></canvas>
+        <div>
+          <label for="threshold4">Threshold: </label>
+          <input
+            type="range"
+            id="threshold4"
+            min="1"
+            max="0"
+            value="0"
+            step="1"
+            style="width: 100%"
+          />
+          <span id="thresholdCurrent4">0</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="attention">
+      <div class="wrapper">
+        <h1>Attention</h1>
+        <div class="circle circle1">
+          <div class="color"></div>
+        </div>
+        <div class="circle circle2">
+          <div class="color"></div>
+        </div>
+        <div class="circle circle3">
+          <div class="color"></div>
+        </div>
+        <div class="score-value-wrapper">
+          <h3>ScoreValue: <span class="score-value">0</span></h3>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/socket.io/client-dist/socket.io.js"></script>
+    <script src="./scripts/CBuffer/cbuffer.js"></script>
+    <script src="./scripts/chart.js/dist/Chart.bundle.js"></script>
+    <script src="./scripts/chartjs-plugin-downsample.js"></script>
+    <script src="./scripts/multiple-chart.js"></script>
+  </body>
+</html>

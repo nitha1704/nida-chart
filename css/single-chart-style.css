@@ -1,0 +1,29 @@
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.attention {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: crimson;
+  width: 200px;
+  height: 200px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.attention .color {
+  background: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 20px auto;
+}
+.attention .circle.active .color {
+  background: black;
+}
