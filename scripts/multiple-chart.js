@@ -43,19 +43,34 @@ var generateDataset = function (name, dataCount, range) {
   };
 };
 
-// Websocket
-var socket = io.connect("http://localhost:3000", {
-  transports: ["websocket"],
-});
-socket.on("chartData", (value) => {
-  //console.log("value", value);
-  addItemSocket(value.randomNumber);
-  checkAttention(value.scoreValue);
-});
+var intervalGraph;
+function startSendData() {
+  intervalGraph = setInterval(() => {
+    let item = {
+      randomNumber: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 30,
+      scoreValue: Math.floor(Math.random() * 3),
+    };
+    addItemSocket(item.randomNumber);
+    checkAttention(item.scoreValue);
+  }, 10);
+}
+function stopSendData() {
+  clearInterval(intervalGraph);
+}
 
-socket.on("connect", () => {
-  console.log("client connected");
-});
+// Websocket
+// var socket = io.connect("http://localhost:3000", {
+//   transports: ["websocket"],
+// });
+// socket.on("chartData", (value) => {
+//   //console.log("value", value);
+//   addItemSocket(value.randomNumber);
+//   checkAttention(value.scoreValue);
+// });
+
+// socket.on("connect", () => {
+//   console.log("client connected");
+// });
 
 // Cbuffer mock data
 const lengthBuffer = 1000;
@@ -83,7 +98,7 @@ myBuff2.push(...generateData(lengthBuffer, 100));
 myBuff3.push(...generateData(lengthBuffer, 200));
 myBuff4.push(...generateData(lengthBuffer, 300));
 
-console.log("myBuff1", myBuff1);
+//console.log("myBuff1", myBuff1);
 
 var config1 = {
   type: "line",
@@ -109,7 +124,7 @@ var config1 = {
     },
     downsample: {
       enabled: true,
-      threshold: 100,
+      threshold: 800,
 
       auto: true,
       onInit: true,
@@ -151,7 +166,7 @@ var config2 = {
     },
     downsample: {
       enabled: true,
-      threshold: 100,
+      threshold: 800,
 
       auto: true,
       onInit: true,
@@ -193,7 +208,7 @@ var config3 = {
     },
     downsample: {
       enabled: true,
-      threshold: 100,
+      threshold: 800,
 
       auto: true,
       onInit: true,
@@ -235,7 +250,7 @@ var config4 = {
     },
     downsample: {
       enabled: true,
-      threshold: 100,
+      threshold: 800,
 
       auto: true,
       onInit: true,
@@ -394,11 +409,11 @@ function addItemSocket2(value) {
   console.log("myBuff1", myBuff1);
 }
 
-console.log("mockChart1", mockChart1);
-console.log("myBuff1", myBuff1);
-console.log("myBuff2", myBuff2);
-console.log("myBuff3", myBuff3);
-console.log("myBuff4", myBuff4);
+// console.log("mockChart1", mockChart1);
+// console.log("myBuff1", myBuff1);
+// console.log("myBuff2", myBuff2);
+// console.log("myBuff3", myBuff3);
+// console.log("myBuff4", myBuff4);
 
 function showTotalItem() {
   console.log("totalItem1Array", totalItem1Array);

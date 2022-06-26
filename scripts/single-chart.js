@@ -43,19 +43,34 @@ var generateDataset = function (name, dataCount, range) {
   };
 };
 
-// Websocket
-var socket = io.connect("http://localhost:3000", {
-  transports: ["websocket"],
-});
-socket.on("chartData", (value) => {
-  //console.log("value", value);
-  addItemSocket(value.randomNumber);
-  checkAttention(value.scoreValue);
-});
+var intervalGraph;
+function startSendData() {
+  intervalGraph = setInterval(() => {
+    let item = {
+      randomNumber: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 30,
+      scoreValue: Math.floor(Math.random() * 3),
+    };
+    addItemSocket(item.randomNumber);
+    checkAttention(item.scoreValue);
+  }, 10);
+}
+function stopSendData() {
+  clearInterval(intervalGraph);
+}
 
-socket.on("connect", () => {
-  console.log("client connected");
-});
+// Websocket
+// var socket = io.connect("http://localhost:3000", {
+//   transports: ["websocket"],
+// });
+// socket.on("chartData", (value) => {
+//   //console.log("value", value);
+//   addItemSocket(value.randomNumber);
+//   checkAttention(value.scoreValue);
+// });
+
+// socket.on("connect", () => {
+//   console.log("client connected");
+// });
 
 // Cbuffer mock data
 const lengthBuffer = 1000;
@@ -83,7 +98,7 @@ myBuff2.push(...generateData(lengthBuffer, 100));
 myBuff3.push(...generateData(lengthBuffer, 200));
 myBuff4.push(...generateData(lengthBuffer, 300));
 
-console.log("myBuff1", myBuff1);
+//console.log("myBuff1", myBuff1);
 
 var config = {
   type: "line",
@@ -138,7 +153,7 @@ var config = {
     },
     downsample: {
       enabled: true,
-      threshold: 100,
+      threshold: 800,
 
       auto: true,
       onInit: true,
@@ -162,8 +177,8 @@ var ctx = document.getElementById("canvas").getContext("2d");
 var mockChart = new Chart(ctx, config);
 
 // DownSampling Function
-var slider = document.getElementById("threshold"),
-  thresholdCurrent = document.getElementById("thresholdCurrent");
+var slider = document.getElementById("threshold");
+var thresholdCurrent = document.getElementById("thresholdCurrent");
 
 slider.max = config.data.datasets[0].data.length;
 slider.value = thresholdCurrent.innerHTML = config.options.downsample.threshold;
@@ -254,16 +269,16 @@ function addItemSocket2(value) {
 
   mockChart.update();
 
-  console.log("config", config.data.datasets[0].data);
-  console.log("myBuff1", myBuff1);
+  // console.log("config", config.data.datasets[0].data);
+  // console.log("myBuff1", myBuff1);
 }
 
-console.log("config", config);
-console.log("mockChart", mockChart);
-console.log("myBuff1", myBuff1);
-console.log("myBuff2", myBuff2);
-console.log("myBuff3", myBuff3);
-console.log("myBuff4", myBuff4);
+// console.log("config", config);
+// console.log("mockChart", mockChart);
+// console.log("myBuff1", myBuff1);
+// console.log("myBuff2", myBuff2);
+// console.log("myBuff3", myBuff3);
+// console.log("myBuff4", myBuff4);
 
 function showTotalItem() {
   console.log("totalItem1Array", totalItem1Array);
